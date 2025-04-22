@@ -1,7 +1,7 @@
 // Gallery data with real estate images
 export const galleryImages = [
   {
-    src: "/gallery/external.jpg",
+    src: "/2.jpg",
     alt: "Marbella Exterior View",
     caption: "Elegant Exterior Architecture",
   },
@@ -11,22 +11,22 @@ export const galleryImages = [
     caption: "Modern Building Facade",
   },
   {
-    src: "/gallery/1.jpg",
+    src: "/9.jpg",
     alt: "Luxury Living Room",
     caption: "Spacious Living Area",
   },
   {
-    src: "/gallery/dining.jpg",
+    src: "/8.jpg",
     alt: "Elegant Dining Area",
     caption: "Contemporary Dining Space",
   },
   {
-    src: "/gallery/kitchen.jpg",
+    src: "/6.jpg",
     alt: "Modern Kitchen",
     caption: "Gourmet Kitchen with Premium Finishes",
   },
   {
-    src: "/gallery/2.jpg",
+    src: "/gallery/one-bedroom.jpg",
     alt: "Master Bedroom",
     caption: "Serene Master Bedroom",
   },
@@ -36,12 +36,12 @@ export const galleryImages = [
     caption: "Spa-Inspired Bathroom",
   },
   {
-    src: "/gallery/balcony.jpg",
+    src: "/3.jpg",
     alt: "Private Balcony",
     caption: "Private Balcony with City Views",
   },
   {
-    src: "/gallery/pool.jpg",
+    src: "/4.jpg",
     alt: "Swimming Pool",
     caption: "Resort-Style Swimming Pool",
   },
@@ -50,17 +50,17 @@ export const galleryImages = [
 // Hero slider images
 export const heroImages = [
   {
-    src: "/images/hero-1.jpg",
+    src: "/1.jpg",
     title: "Marbella Apartments",
     subtitle: "Refined Living in Kingston's Upscale Long Lane",
   },
   {
-    src: "/images/hero-2.jpg",
+    src: "/images/hero-1.jpg",
     title: "Exquisite Design",
     subtitle: "Meticulously Crafted Spaces for Discerning Residents",
   },
   {
-    src: "/images/hero-3.jpg",
+    src: "/images/hero-2.jpg",
     title: "Serene Retreat",
     subtitle: "A Peaceful Haven with Urban Convenience",
   },
@@ -69,41 +69,41 @@ export const heroImages = [
 // Amenities images
 export const amenitiesImages = {
   pool: {
-    src: "/placeholder.svg?height=400&width=600",
+    src: "/4.jpg",
     alt: "Resort-style Swimming Pool",
     caption: "Resort-style Swimming Pool",
   },
   rooftop: {
-    src: "/placeholder.svg?height=400&width=600",
+    src: "/amenities/rooftop.jpg",
     alt: "Rooftop Lounge & Terrace",
     caption: "Panoramic Rooftop Lounge",
   },
   security: {
-    src: "/placeholder.svg?height=400&width=600",
+    src: "/amenities/security.jpg",
     alt: "24hr Security with CCTV",
     caption: "State-of-the-art Security",
   },
   landscape: {
-    src: "/placeholder.svg?height=400&width=600",
+    src: "/amenities/garden.jpg",
     alt: "Landscaped Gardens",
     caption: "Meticulously Maintained Gardens",
   },
   parking: {
-    src: "/placeholder.svg?height=400&width=600",
+    src: "/amenities/parking.jpg",
     alt: "Abundant Parking",
-    caption: "Secure Resident Parking",
+    caption: "Secure Residential Parking",
   },
 };
 
 // Residence images
 export const residenceImages = {
   studio: {
-    src: "/residences/studio.jpg",
+    src: "/7.jpg",
     alt: "Studio Residence",
     caption: "Studio Residence",
   },
   oneBedroom: {
-    src: "/residences/one-bedroom.jpg",
+    src: "/0.jpg",
     alt: "One Bedroom Residence",
     caption: "One Bedroom Residence",
   },
@@ -112,12 +112,12 @@ export const residenceImages = {
 // Floor plans
 export const floorPlanImages = {
   studio: {
-    src: "/placeholder.svg?height=600&width=800",
+    src: "/floor-plans/1.jpg",
     alt: "Studio Floor Plan",
     caption: "Studio Floor Plan - 856 sqft",
   },
   oneBedroom: {
-    src: "/placeholder.svg?height=600&width=800",
+    src: "/floor-plans/2.jpg",
     alt: "One Bedroom Floor Plan",
     caption: "One Bedroom Floor Plan - 912 sqft",
   },
@@ -125,7 +125,7 @@ export const floorPlanImages = {
 
 // About section image
 export const aboutImage = {
-  src: "/images/outside.jpg",
+  src: "/2.jpg",
   alt: "Marbella Apartments Building",
   caption: "Architectural Excellence",
 };
