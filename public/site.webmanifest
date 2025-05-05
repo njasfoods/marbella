@@ -1,0 +1,15 @@
+{
+    "name": "Marbella Apartments",
+    "short_name": "Marbella",
+    "icons": [
+      {
+        "src": "/icon.png",
+        "sizes": "192x192",
+        "type": "image/png"
+      }
+    ],
+    "theme_color": "#D4AF37",
+    "background_color": "#0F1A2A",
+    "display": "standalone"
+  }
+  

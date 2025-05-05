@@ -11,7 +11,7 @@ export default function EnhancedResidencesSection() {
   const units = [
     {
       type: "Studio Residence",
-      size: "856 sqft (gross), 768 sqft (habitable)",
+      size: "828 sqft (gross), 768 sqft (habitable)",
       features: ["Premium Finishes", "Private Balcony", "Smart Home Integration", "Designer Fixtures"],
       units: ["Unit 1, 4, 5, 8, 9", "Unit 12, 13, 16"],
       image: residenceImages.studio,

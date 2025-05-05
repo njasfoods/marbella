@@ -1,37 +1,37 @@
 // Gallery data with real estate images
 export const galleryImages = [
   {
-    src: "/2.jpg",
+    src: "/exterior2.png",
     alt: "Marbella Exterior View",
     caption: "Elegant Exterior Architecture",
   },
   {
-    src: "/gallery/facade.jpg",
+    src: "/exterior.png",
     alt: "Marbella Building Facade",
     caption: "Modern Building Facade",
   },
   {
-    src: "/9.jpg",
+    src: "/livingRoom.jpg",
     alt: "Luxury Living Room",
     caption: "Spacious Living Area",
   },
   {
-    src: "/8.jpg",
+    src: "/dining.jpg",
     alt: "Elegant Dining Area",
     caption: "Contemporary Dining Space",
   },
   {
-    src: "/6.jpg",
+    src: "/kitchen.jpg",
     alt: "Modern Kitchen",
     caption: "Gourmet Kitchen with Premium Finishes",
   },
   {
-    src: "/gallery/one-bedroom.jpg",
+    src: "/bedroom.jpg",
     alt: "Master Bedroom",
     caption: "Serene Master Bedroom",
   },
   {
-    src: "/gallery/bathroom.jpg",
+    src: "/bathroom.jpg",
     alt: "Luxury Bathroom",
     caption: "Spa-Inspired Bathroom",
   },
@@ -41,7 +41,7 @@ export const galleryImages = [
     caption: "Private Balcony with City Views",
   },
   {
-    src: "/4.jpg",
+    src: "/roof2.jpg",
     alt: "Swimming Pool",
     caption: "Resort-Style Swimming Pool",
   },
@@ -50,17 +50,17 @@ export const galleryImages = [
 // Hero slider images
 export const heroImages = [
   {
-    src: "/1.jpg",
+    src: "/exterior.png",
     title: "Marbella Apartments",
     subtitle: "Refined Living in Kingston's Upscale Long Lane",
   },
   {
-    src: "/images/hero-1.jpg",
+    src: "/roof4.jpg",
     title: "Exquisite Design",
     subtitle: "Meticulously Crafted Spaces for Discerning Residents",
   },
   {
-    src: "/images/hero-2.jpg",
+    src: "/roof2.jpg",
     title: "Serene Retreat",
     subtitle: "A Peaceful Haven with Urban Convenience",
   },
@@ -69,12 +69,12 @@ export const heroImages = [
 // Amenities images
 export const amenitiesImages = {
   pool: {
-    src: "/4.jpg",
+    src: "/roof1.jpg",
     alt: "Resort-style Swimming Pool",
     caption: "Resort-style Swimming Pool",
   },
   rooftop: {
-    src: "/amenities/rooftop.jpg",
+    src: "/roof3.jpg",
     alt: "Rooftop Lounge & Terrace",
     caption: "Panoramic Rooftop Lounge",
   },
@@ -98,12 +98,12 @@ export const amenitiesImages = {
 // Residence images
 export const residenceImages = {
   studio: {
-    src: "/7.jpg",
+    src: "/bedroom.jpg",
     alt: "Studio Residence",
     caption: "Studio Residence",
   },
   oneBedroom: {
-    src: "/0.jpg",
+    src: "/bedroom2.jpg",
     alt: "One Bedroom Residence",
     caption: "One Bedroom Residence",
   },
@@ -125,7 +125,7 @@ export const floorPlanImages = {
 
 // About section image
 export const aboutImage = {
-  src: "/2.jpg",
+  src: "/exterior2.png",
   alt: "Marbella Apartments Building",
   caption: "Architectural Excellence",
 };

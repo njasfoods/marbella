@@ -6,8 +6,8 @@ import { Clock } from "lucide-react";
 export default function ProximitySection() {
   const locations = [
     { name: "Manor Park", time: "3 minutes", icon: "🏞️" }, // more suburban/green space vibe
-    { name: "Andrews Hospital", time: "13 minutes", icon: "🏥" }, // hospital icon
     { name: "New Kingston", time: "13 minutes", icon: "🏢" }, // business center
+    { name: "Andrews Hospital", time: "14 minutes", icon: "🏥" }, // hospital icon
     { name: "Half Way Tree", time: "14 minutes", icon: "🚌" }, // transportation hub
     { name: "Devon House", time: "15 minutes", icon: "🍦" }, // tourist attraction, ice cream spot
     { name: "Crossroads", time: "17 minutes", icon: "🛣️" }, // major intersection
@@ -15,8 +15,8 @@ export default function ProximitySection() {
     { name: "University of Technology Papine", time: "19 minutes", icon: "🎓" },
     { name: "UWI Mona", time: "21 minutes", icon: "🎓" },
     { name: "Downtown Kingston", time: "22 minutes", icon: "🏙️" },
-    { name: "Norman Manley Int Airport", time: "39 minutes", icon: "✈️" },
     { name: "Portmore (Toll)", time: "30 minutes", icon: "🌉" },
+    { name: "Norman Manley Int Airport", time: "39 minutes", icon: "✈️" },
   ];
 
   return (

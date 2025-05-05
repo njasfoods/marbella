@@ -3,6 +3,7 @@
 import { motion } from "framer-motion"
 import { MapPin, Phone, Mail } from "lucide-react"
 import ContactForm from "../components/contact-form"
+import WhatsAppDirectButton from "../components/whatsapp-direct-button"
 
 export default function ContactSection() {
   return (
@@ -74,6 +75,10 @@ export default function ContactSection() {
                   <p className="text-gray-300 font-light">concierge@marbellakingston.com</p>
                 </div>
               </motion.div>
+            </div>
+
+            <div className="mt-8">
+              <WhatsAppDirectButton className="w-full md:w-auto" buttonText="Chat with Us on WhatsApp" />
             </div>
           </motion.div>
 

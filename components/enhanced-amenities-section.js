@@ -1,9 +1,9 @@
-"use client"
+"use client";
 
-import { motion } from "framer-motion"
-import Image from "next/image"
-import { Sparkles, Maximize, Shield, Home, MapPin } from "lucide-react"
-import { amenitiesImages } from "../app/gallery-data"
+import { motion } from "framer-motion";
+import Image from "next/image";
+import { Sparkles, Maximize, Shield, Home, MapPin, TreePalm, TreePalmIcon } from "lucide-react";
+import { amenitiesImages } from "../app/gallery-data";
 
 export default function EnhancedAmenitiesSection() {
   const amenities = [
@@ -26,9 +26,20 @@ export default function EnhancedAmenitiesSection() {
       image: amenitiesImages.security,
     },
     {
+      name: "Airbnb Friendly",
+      description:
+        "Short-term rental friendly—perfect for Airbnb hosts and guests.",
+      icon: <Home className="h-8 w-8 text-gold" />, // You can replace 'Home' with another icon if you prefer
+      image: {
+        src: "/placeholder.svg?height=400&width=600",
+        alt: "Airbnb Friendly",
+        caption: "Airbnb Friendly",
+      },
+    },
+    {
       name: "Landscaped Areas",
       description: "Beautifully maintained gardens",
-      icon: <Home className="h-8 w-8 text-gold" />,
+      icon: <TreePalmIcon className="h-8 w-8 text-gold" />,
       image: amenitiesImages.landscape,
     },
     {
@@ -37,10 +48,13 @@ export default function EnhancedAmenitiesSection() {
       icon: <MapPin className="h-8 w-8 text-gold" />,
       image: amenitiesImages.parking,
     },
-  ]
+  ];
 
   return (
-    <section id="amenities" className="py-16 md:py-24 bg-white relative overflow-hidden">
+    <section
+      id="amenities"
+      className="py-16 md:py-24 bg-white relative overflow-hidden"
+    >
       <div className="absolute left-0 top-1/2 -translate-y-1/2 w-24 h-64 bg-gold/5"></div>
       <div className="absolute right-0 top-1/2 -translate-y-1/2 w-24 h-64 bg-gold/5"></div>
 
@@ -54,11 +68,16 @@ export default function EnhancedAmenitiesSection() {
         >
           <div className="mb-2">
             <div className="w-16 h-[1px] bg-gold mx-auto mb-4"></div>
-            <span className="text-gold tracking-[0.2em] uppercase text-sm font-light">Exclusive Offerings</span>
+            <span className="text-gold tracking-[0.2em] uppercase text-sm font-light">
+              Exclusive Offerings
+            </span>
           </div>
-          <h2 className="text-3xl md:text-4xl font-serif mb-4">Curated Amenities</h2>
+          <h2 className="text-3xl md:text-4xl font-serif mb-4">
+            Curated Amenities
+          </h2>
           <p className="text-gray-700 max-w-2xl mx-auto font-light">
-            Experience a lifestyle of unparalleled luxury with our thoughtfully selected amenities
+            Experience a lifestyle of unparalleled luxury with our thoughtfully
+            selected amenities
           </p>
         </motion.div>
 
@@ -75,11 +94,17 @@ export default function EnhancedAmenitiesSection() {
               <div className="relative overflow-hidden mb-6 img-hover-zoom">
                 <Image
                   src={
-                    amenity.image && amenity.image.src && amenity.image.src.trim() !== ""
+                    amenity.image &&
+                    amenity.image.src &&
+                    amenity.image.src.trim() !== ""
                       ? amenity.image.src
                       : "/placeholder.svg?height=400&width=600"
                   }
-                  alt={amenity.image && amenity.image.alt ? amenity.image.alt : amenity.name}
+                  alt={
+                    amenity.image && amenity.image.alt
+                      ? amenity.image.alt
+                      : amenity.name
+                  }
                   width={600}
                   height={400}
                   className="w-full h-64 object-cover"
@@ -90,9 +115,13 @@ export default function EnhancedAmenitiesSection() {
                 </div>
               </div>
               <div className="flex items-start">
-                <div className="mr-4 group-hover:scale-110 transition-transform duration-300 mt-1">{amenity.icon}</div>
+                <div className="mr-4 group-hover:scale-110 transition-transform duration-300 mt-1">
+                  {amenity.icon}
+                </div>
                 <div>
-                  <p className="text-gray-600 font-light">{amenity.description}</p>
+                  <p className="text-gray-600 font-light">
+                    {amenity.description}
+                  </p>
                 </div>
               </div>
             </motion.div>
@@ -100,5 +129,5 @@ export default function EnhancedAmenitiesSection() {
         </div>
       </div>
     </section>
-  )
+  );
 }

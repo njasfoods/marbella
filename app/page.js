@@ -11,7 +11,7 @@ import ContactSection from "./contact-section"
 import ProximitySection from "./proximity-section"
 import Navbar from "./navbar"
 import Footer from "./footer"
-import WhatsAppWidget from "./whatsapp-widget"
+import ChatWidget from "@/components/chat-widget"
 
 // Main component export
 function HomePage() {
@@ -27,7 +27,7 @@ function HomePage() {
       <EnhancedGallerySection />
       <ContactSection />
       <Footer />
-      <WhatsAppWidget />
+      <ChatWidget />
     </main>
   )
 }

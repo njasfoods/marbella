@@ -1,7 +1,7 @@
 "use client"
 
 import Link from "next/link"
-import { motion } from "framer-motion"
+import NewsletterForm from "../components/newsletter-form"
 
 export default function Footer() {
   return (
@@ -88,44 +88,24 @@ export default function Footer() {
             <h3 className="text-lg font-serif mb-6">Legal</h3>
             <ul className="space-y-4">
               <li>
-                <a href="#" className="text-gray-400 hover:text-gold transition-colors font-light">
+                <Link href="/privacy-policy" className="text-gray-400 hover:text-gold transition-colors font-light">
                   Privacy Policy
-                </a>
+                </Link>
               </li>
               <li>
-                <a href="#" className="text-gray-400 hover:text-gold transition-colors font-light">
+                <Link href="/terms-conditions" className="text-gray-400 hover:text-gold transition-colors font-light">
                   Terms & Conditions
-                </a>
+                </Link>
               </li>
               <li>
-                <a href="#" className="text-gray-400 hover:text-gold transition-colors font-light">
+                <Link href="/cookie-policy" className="text-gray-400 hover:text-gold transition-colors font-light">
                   Cookie Policy
-                </a>
+                </Link>
               </li>
             </ul>
           </div>
 
-          <div>
-            <h3 className="text-lg font-serif mb-6">Newsletter</h3>
-            <p className="text-gray-400 mb-6 font-light">
-              Subscribe to receive exclusive updates and offers from Marbella Apartments.
-            </p>
-            <form className="space-y-4">
-              <input
-                type="email"
-                placeholder="Your email address"
-                className="w-full px-4 py-3 bg-dark-blue-light border border-gold/30 focus:border-gold outline-none transition-colors duration-300 text-white"
-              />
-              <motion.button
-                type="submit"
-                className="w-full bg-gold hover:bg-gold/90 text-dark-blue font-light py-3 uppercase tracking-wider text-sm transition-colors duration-300"
-                whileHover={{ scale: 1.02 }}
-                whileTap={{ scale: 0.98 }}
-              >
-                Subscribe
-              </motion.button>
-            </form>
-          </div>
+          <NewsletterForm />
         </div>
 
         <div className="border-t border-gold/10 mt-12 md:mt-16 pt-8 flex flex-col md:flex-row justify-between items-center">
@@ -133,7 +113,7 @@ export default function Footer() {
             &copy; {new Date().getFullYear()} Marbella Apartments. All rights reserved.
           </p>
           <p className="text-gray-400 text-sm mt-4 md:mt-0 font-light">
-            Crafted with <span className="text-gold">♦</span> for discerning tastes
+            Designed by <span className="text-gold">Trexiti</span> 
           </p>
         </div>
       </div>
