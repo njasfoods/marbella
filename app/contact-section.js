@@ -56,7 +56,8 @@ export default function ContactSection() {
                 </div>
                 <div>
                   <h3 className="font-serif text-lg mb-2">Private Consultation</h3>
-                  <p className="text-gray-300 font-light">+1 (876) 123-4567</p>
+                  <p className="text-gray-300 font-light">+1 (876) 589-7448
+                  </p>
                 </div>
               </motion.div>
 
@@ -72,7 +73,8 @@ export default function ContactSection() {
                 </div>
                 <div>
                   <h3 className="font-serif text-lg mb-2">Email</h3>
-                  <p className="text-gray-300 font-light">concierge@marbellakingston.com</p>
+                  <p className="text-gray-300 font-light">Kbidevelopmentsltd@gmail.com
+                  </p>
                 </div>
               </motion.div>
             </div>

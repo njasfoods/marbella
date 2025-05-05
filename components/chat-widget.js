@@ -1,90 +1,104 @@
-"use client"
+"use client";
 
-import { useState, useEffect, useRef } from "react"
-import { motion, AnimatePresence } from "framer-motion"
-import { X, ArrowRight, MessageCircle, Loader2 } from "lucide-react"
-import { ref, push, onValue, query, orderByChild, limitToLast } from "firebase/database"
-import { rtdb, auth } from "../lib/firebase"
-import { signInAnonymously } from "firebase/auth"
+import { useState, useEffect, useRef } from "react";
+import { motion, AnimatePresence } from "framer-motion";
+import { X, ArrowRight, MessageCircle, Loader2 } from "lucide-react";
+import {
+  ref,
+  push,
+  onValue,
+  query,
+  orderByChild,
+  limitToLast,
+} from "firebase/database";
+import { rtdb, auth } from "../lib/firebase";
+import { signInAnonymously } from "firebase/auth";
 
 export default function ChatWidget() {
-  const [isOpen, setIsOpen] = useState(false)
-  const [message, setMessage] = useState("")
-  const [name, setName] = useState("")
-  const [email, setEmail] = useState("")
-  const [step, setStep] = useState("intro") // intro, chat
-  const [messages, setMessages] = useState([])
-  const [loading, setLoading] = useState(false)
-  const [error, setError] = useState("")
-  const chatRef = useRef(null)
-  const messagesEndRef = useRef(null)
+  const [isOpen, setIsOpen] = useState(false);
+  const [message, setMessage] = useState("");
+  const [name, setName] = useState("");
+  const [email, setEmail] = useState("");
+  const [step, setStep] = useState("intro"); // intro, chat
+  const [messages, setMessages] = useState([]);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState("");
+  const chatRef = useRef(null);
+  const messagesEndRef = useRef(null);
 
   // Scroll to bottom of chat when new messages arrive
   useEffect(() => {
     if (messagesEndRef.current) {
-      messagesEndRef.current.scrollIntoView({ behavior: "smooth" })
+      messagesEndRef.current.scrollIntoView({ behavior: "smooth" });
     }
-  }, [messages])
+  }, [messages]);
 
   // Initialize chat and listen for messages
   useEffect(() => {
     if (step === "chat") {
-      setLoading(true)
+      setLoading(true);
 
       // Sign in anonymously
       signInAnonymously(auth)
         .then((userCredential) => {
-          const userId = userCredential.user.uid
+          const userId = userCredential.user.uid;
 
           // Create a reference to this user's chat
-          const chatRef = ref(rtdb, `chats/${userId}`)
+          const chatRef = ref(rtdb, `chats/${userId}`);
 
           // Listen for new messages
-          const messagesQuery = query(ref(rtdb, `chats/${userId}/messages`), orderByChild("timestamp"), limitToLast(50))
+          const messagesQuery = query(
+            ref(rtdb, `chats/${userId}/messages`),
+            orderByChild("timestamp"),
+            limitToLast(50)
+          );
 
           const unsubscribe = onValue(messagesQuery, (snapshot) => {
-            const messagesData = snapshot.val()
+            const messagesData = snapshot.val();
             if (messagesData) {
-              const messagesList = Object.entries(messagesData).map(([key, value]) => ({
-                id: key,
-                ...value,
-              }))
-              setMessages(messagesList)
+              const messagesList = Object.entries(messagesData).map(
+                ([key, value]) => ({
+                  id: key,
+                  ...value,
+                })
+              );
+              setMessages(messagesList);
             }
-            setLoading(false)
-          })
+            setLoading(false);
+          });
 
           // Add welcome message if no messages exist
           push(ref(rtdb, `chats/${userId}/messages`), {
             text: `Hello ${name}! How may we assist you with Marbella Apartments today?`,
             sender: "admin",
             timestamp: Date.now(),
-          })
+          });
 
           // Add user info
           push(ref(rtdb, `chats/${userId}/info`), {
             name,
             email,
             joinedAt: Date.now(),
-          })
+          });
 
-          return () => unsubscribe()
+          return () => unsubscribe();
         })
         .catch((error) => {
-          console.error("Error signing in anonymously:", error)
-          setError("Unable to connect to chat. Please try again later.")
-          setLoading(false)
-        })
+          console.error("Error signing in anonymously:", error);
+          setError("Unable to connect to chat. Please try again later.");
+          setLoading(false);
+        });
     }
-  }, [step, name, email])
+  }, [step, name, email]);
 
   const handleSendMessage = () => {
-    if (!message.trim()) return
+    console.log("fired");
+    if (!message.trim()) return;
 
-    const userId = auth.currentUser?.uid
+    const userId = auth.currentUser?.uid;
     if (!userId) {
-      setError("Chat connection lost. Please refresh the page.")
-      return
+      setError("Chat connection lost. Please refresh the page.");
+      return;
     }
 
     // Add message to Firebase
@@ -92,20 +106,20 @@ export default function ChatWidget() {
       text: message,
       sender: "user",
       timestamp: Date.now(),
-    })
+    });
 
-    setMessage("")
-  }
+    setMessage("");
+  };
 
   const handleStartChat = () => {
     if (!name.trim()) {
-      setError("Please enter your name to continue")
-      return
+      setError("Please enter your name to continue");
+      return;
     }
 
-    setError("")
-    setStep("chat")
-  }
+    setError("");
+    setStep("chat");
+  };
 
   return (
     <div className="fixed bottom-6 right-6 z-50">
@@ -131,18 +145,24 @@ export default function ChatWidget() {
                   <X size={18} />
                 </button>
               </div>
-              <p className="text-sm mt-1 text-gold/80">Our team is here to assist you</p>
+              <p className="text-sm mt-1 text-gold/80">
+                Our team is here to assist you
+              </p>
             </div>
 
             {step === "intro" && (
               <div className="p-4 bg-gray-50">
                 <h4 className="font-serif text-lg mb-3">Welcome to Marbella</h4>
                 <p className="text-sm text-gray-600 mb-4">
-                  Please provide your details to start chatting with our concierge team.
+                  Please provide your details to start chatting with our
+                  concierge team.
                 </p>
                 <div className="space-y-3">
                   <div>
-                    <label htmlFor="chat-name" className="block text-sm font-medium text-gray-700 mb-1">
+                    <label
+                      htmlFor="chat-name"
+                      className="block text-sm font-medium text-gray-700 mb-1"
+                    >
                       Name <span className="text-red-500">*</span>
                     </label>
                     <input
@@ -155,7 +175,10 @@ export default function ChatWidget() {
                     />
                   </div>
                   <div>
-                    <label htmlFor="chat-email" className="block text-sm font-medium text-gray-700 mb-1">
+                    <label
+                      htmlFor="chat-email"
+                      className="block text-sm font-medium text-gray-700 mb-1"
+                    >
                       Email (optional)
                     </label>
                     <input
@@ -179,7 +202,10 @@ export default function ChatWidget() {
 
             {step === "chat" && (
               <>
-                <div ref={chatRef} className="p-4 bg-gray-50 h-60 overflow-y-auto">
+                <div
+                  ref={chatRef}
+                  className="p-4 bg-gray-50 h-60 overflow-y-auto"
+                >
                   {loading ? (
                     <div className="flex justify-center items-center h-full">
                       <Loader2 size={24} className="animate-spin text-gold" />
@@ -189,7 +215,11 @@ export default function ChatWidget() {
                       {messages.map((msg) => (
                         <div
                           key={msg.id}
-                          className={`mb-3 flex ${msg.sender === "user" ? "justify-end" : "justify-start"}`}
+                          className={`mb-3 flex ${
+                            msg.sender === "user"
+                              ? "justify-end"
+                              : "justify-start"
+                          }`}
                         >
                           <div
                             className={`p-3 rounded-lg max-w-[80%] ${
@@ -243,5 +273,5 @@ export default function ChatWidget() {
         <MessageCircle size={24} className="text-gold" />
       </motion.button>
     </div>
-  )
+  );
 }
