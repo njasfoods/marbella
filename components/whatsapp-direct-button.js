@@ -1,26 +1,27 @@
-"use client"
+"use client";
 
-import { useState } from "react"
-import { motion } from "framer-motion"
+import { useState } from "react";
+import { motion } from "framer-motion";
 
-export default function WhatsAppDirectButton({ className = "", buttonText = "Chat on WhatsApp" }) {
-  const [isHovered, setIsHovered] = useState(false)
+export default function WhatsAppDirectButton({
+  className = "",
+  buttonText = "Chat on WhatsApp",
+}) {
+  const [isHovered, setIsHovered] = useState(false);
 
-  // Your business phone number with country code (e.g., +18765551234)
-  const businessPhone = "+18765551234" // Replace with your actual WhatsApp business number
+  const businessPhone = "+18765897448";
 
-  // Default message that will appear in the WhatsApp chat
   const defaultMessage = encodeURIComponent(
-    "Hello, I'm interested in Marbella Apartments and would like more information.",
-  )
+    "Hello, I'm interested in Marbella Apartments and would like more information."
+  );
 
   const handleClick = () => {
     // Create WhatsApp API URL
-    const whatsappURL = `https://wa.me/${businessPhone}?text=${defaultMessage}`
+    const whatsappURL = `https://wa.me/${businessPhone}?text=${defaultMessage}`;
 
     // Open WhatsApp in a new tab
-    window.open(whatsappURL, "_blank")
-  }
+    window.open(whatsappURL, "_blank");
+  };
 
   return (
     <motion.button
@@ -32,7 +33,9 @@ export default function WhatsAppDirectButton({ className = "", buttonText = "Cha
       onMouseLeave={() => setIsHovered(false)}
     >
       <svg
-        className={`w-5 h-5 mr-2 transition-transform duration-300 ${isHovered ? "rotate-12" : ""}`}
+        className={`w-5 h-5 mr-2 transition-transform duration-300 ${
+          isHovered ? "rotate-12" : ""
+        }`}
         fill="currentColor"
         viewBox="0 0 24 24"
         xmlns="http://www.w3.org/2000/svg"
@@ -41,5 +44,5 @@ export default function WhatsAppDirectButton({ className = "", buttonText = "Cha
       </svg>
       {buttonText}
     </motion.button>
-  )
+  );
 }

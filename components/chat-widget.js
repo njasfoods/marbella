@@ -1,125 +1,352 @@
-"use client";
+"use client"
 
-import { useState, useEffect, useRef } from "react";
-import { motion, AnimatePresence } from "framer-motion";
-import { X, ArrowRight, MessageCircle, Loader2 } from "lucide-react";
+import { useState, useEffect, useRef } from "react"
+import { motion, AnimatePresence } from "framer-motion"
+import { X, ArrowRight, MessageCircle, Loader2, Send, UserCircle, LogOut } from "lucide-react"
 import {
-  ref,
-  push,
-  onValue,
+  collection,
+  addDoc,
   query,
-  orderByChild,
-  limitToLast,
-} from "firebase/database";
-import { rtdb, auth } from "../lib/firebase";
-import { signInAnonymously } from "firebase/auth";
+  orderBy,
+  limit,
+  onSnapshot,
+  serverTimestamp,
+  where,
+  getDocs,
+  setDoc,
+  doc,
+} from "firebase/firestore"
+import { db, auth } from "../lib/firebase"
+import { signInAnonymously } from "firebase/auth"
 
 export default function ChatWidget() {
-  const [isOpen, setIsOpen] = useState(false);
-  const [message, setMessage] = useState("");
-  const [name, setName] = useState("");
-  const [email, setEmail] = useState("");
-  const [step, setStep] = useState("intro"); // intro, chat
-  const [messages, setMessages] = useState([]);
-  const [loading, setLoading] = useState(false);
-  const [error, setError] = useState("");
-  const chatRef = useRef(null);
-  const messagesEndRef = useRef(null);
+  const [isOpen, setIsOpen] = useState(false)
+  const [message, setMessage] = useState("")
+  const [name, setName] = useState("")
+  const [email, setEmail] = useState("")
+  const [phone, setPhone] = useState("")
+  const [step, setStep] = useState("loading") // loading, intro, chat, fallback
+  const [messages, setMessages] = useState([])
+  const [loading, setLoading] = useState(false)
+  const [error, setError] = useState("")
+  const chatRef = useRef(null)
+  const messagesEndRef = useRef(null)
+  const [fallbackMessages, setFallbackMessages] = useState([
+    {
+      id: 1,
+      text: "Hello! How may we assist you with Marbella Apartments today?",
+      sender: "admin",
+      timestamp: Date.now(),
+    },
+  ])
+  const unsubscribeRef = useRef(null)
+
+  // Load user data from localStorage on component mount
+  useEffect(() => {
+    // Check if we're in the browser environment
+    if (typeof window !== "undefined") {
+      const savedUserData = localStorage.getItem("marbellaUserData")
+
+      if (savedUserData) {
+        const userData = JSON.parse(savedUserData)
+        setName(userData.name || "")
+        setEmail(userData.email || "")
+        setPhone(userData.phone || "")
+
+        // If we have user data, skip the intro step
+        setStep(userData.chatMode || "chat")
+
+        // If in fallback mode, load saved messages if any
+        if (userData.chatMode === "fallback" && userData.fallbackMessages) {
+          setFallbackMessages(userData.fallbackMessages)
+        }
+      } else {
+        setStep("intro")
+      }
+    } else {
+      setStep("intro")
+    }
+  }, [])
+
+  // Save user data to localStorage whenever it changes
+  useEffect(() => {
+    if (step !== "loading" && step !== "intro" && typeof window !== "undefined") {
+      localStorage.setItem(
+        "marbellaUserData",
+        JSON.stringify({
+          name,
+          email,
+          phone,
+          chatMode: step,
+          fallbackMessages: step === "fallback" ? fallbackMessages : null,
+        }),
+      )
+    }
+  }, [name, email, phone, step, fallbackMessages])
 
   // Scroll to bottom of chat when new messages arrive
   useEffect(() => {
     if (messagesEndRef.current) {
-      messagesEndRef.current.scrollIntoView({ behavior: "smooth" });
+      messagesEndRef.current.scrollIntoView({ behavior: "smooth" })
     }
-  }, [messages]);
+  }, [messages, fallbackMessages])
+
+  // Clean up listener on unmount
+  useEffect(() => {
+    return () => {
+      if (unsubscribeRef.current) {
+        unsubscribeRef.current()
+      }
+    }
+  }, [])
 
   // Initialize chat and listen for messages
   useEffect(() => {
     if (step === "chat") {
-      setLoading(true);
+      setLoading(true)
 
-      // Sign in anonymously
-      signInAnonymously(auth)
-        .then((userCredential) => {
-          const userId = userCredential.user.uid;
+      const initializeChat = async () => {
+        try {
+          // Sign in anonymously
+          const userCredential = await signInAnonymously(auth)
+          const userId = userCredential.user.uid
 
-          // Create a reference to this user's chat
-          const chatRef = ref(rtdb, `chats/${userId}`);
+          console.log("Signed in with user ID:", userId)
+
+          // Check if this is the first message for this user
+          const userChatsQuery = query(collection(db, "chats"), where("userId", "==", userId))
+          const userChatsSnapshot = await getDocs(userChatsQuery)
+          const isFirstChat = userChatsSnapshot.empty
+
+          console.log("Is first chat:", isFirstChat)
+
+          // If this is the first chat, save user info
+          if (isFirstChat) {
+            // Create a chat document for this user
+            await setDoc(doc(db, "chats", userId), {
+              userId,
+              name,
+              email,
+              phone,
+              createdAt: serverTimestamp(),
+              lastActive: serverTimestamp(),
+            })
+
+            // Add welcome message
+            await addDoc(collection(db, "chats", userId, "messages"), {
+              text: `Hello ${name}! How may we assist you with Marbella Apartments today?`,
+              sender: "admin",
+              createdAt: serverTimestamp(),
+              timestamp: Date.now(), // For sorting and display
+            })
+          } else {
+            // Update last active timestamp
+            await setDoc(
+              doc(db, "chats", userId),
+              {
+                lastActive: serverTimestamp(),
+              },
+              { merge: true },
+            )
+
+            // Check if we need to add a welcome back message
+            if (messages.length === 0) {
+              await addDoc(collection(db, "chats", userId, "messages"), {
+                text: `Welcome back, ${name}! How can we help you today?`,
+                sender: "admin",
+                createdAt: serverTimestamp(),
+                timestamp: Date.now(),
+              })
+            }
+          }
 
           // Listen for new messages
           const messagesQuery = query(
-            ref(rtdb, `chats/${userId}/messages`),
-            orderByChild("timestamp"),
-            limitToLast(50)
-          );
+            collection(db, "chats", userId, "messages"),
+            orderBy("timestamp", "asc"),
+            limit(50),
+          )
 
-          const unsubscribe = onValue(messagesQuery, (snapshot) => {
-            const messagesData = snapshot.val();
-            if (messagesData) {
-              const messagesList = Object.entries(messagesData).map(
-                ([key, value]) => ({
-                  id: key,
-                  ...value,
-                })
-              );
-              setMessages(messagesList);
-            }
-            setLoading(false);
-          });
+          console.log("Setting up message listener")
 
-          // Add welcome message if no messages exist
-          push(ref(rtdb, `chats/${userId}/messages`), {
-            text: `Hello ${name}! How may we assist you with Marbella Apartments today?`,
-            sender: "admin",
-            timestamp: Date.now(),
-          });
+          // Store the unsubscribe function in the ref
+          unsubscribeRef.current = onSnapshot(
+            messagesQuery,
+            (snapshot) => {
+              console.log("Message snapshot received, docs:", snapshot.docs.length)
 
-          // Add user info
-          push(ref(rtdb, `chats/${userId}/info`), {
-            name,
-            email,
-            joinedAt: Date.now(),
-          });
+              const messagesList = snapshot.docs.map((doc) => {
+                const data = doc.data()
+                return {
+                  id: doc.id,
+                  ...data,
+                  // Ensure timestamp is a number for consistent display
+                  timestamp: data.timestamp || Date.now(),
+                }
+              })
 
-          return () => unsubscribe();
+              console.log("Processed messages:", messagesList)
+              setMessages(messagesList)
+              setLoading(false)
+            },
+            (error) => {
+              console.error("Error in message listener:", error)
+              setError("Error listening for messages. Please try again.")
+              setLoading(false)
+            },
+          )
+        } catch (error) {
+          console.error("Error initializing chat:", error)
+          setError("Unable to connect to chat. Using fallback chat mode.")
+          setStep("fallback")
+          setLoading(false)
+        }
+      }
+
+      initializeChat()
+    }
+  }, [step, name, email, phone])
+
+  const handleSendMessage = async () => {
+    if (!message.trim()) return
+
+    if (step === "chat") {
+      const userId = auth.currentUser?.uid
+      if (!userId) {
+        setError("Chat connection lost. Using fallback chat mode.")
+        setStep("fallback")
+        return
+      }
+
+      try {
+        console.log("Sending message:", message)
+
+        // Create message object with all required fields
+        const messageData = {
+          text: message,
+          sender: "user",
+          createdAt: serverTimestamp(),
+          timestamp: Date.now(), // For sorting and display
+        }
+
+        // Add message to Firestore
+        const docRef = await addDoc(collection(db, "chats", userId, "messages"), messageData)
+        console.log("Message sent with ID:", docRef.id)
+
+        // Update last active timestamp
+        await setDoc(
+          doc(db, "chats", userId),
+          {
+            lastActive: serverTimestamp(),
+          },
+          { merge: true },
+        )
+
+        // Optimistically add message to local state for immediate display
+        setMessages((prevMessages) => [
+          ...prevMessages,
+          {
+            id: docRef.id,
+            ...messageData,
+          },
+        ])
+      } catch (error) {
+        console.error("Error sending message:", error)
+        setError("Failed to send message. Please try again.")
+      }
+    } else if (step === "fallback") {
+      // Add message to local fallback chat
+      const newMessages = [
+        ...fallbackMessages,
+        { id: Date.now(), text: message, sender: "user", timestamp: Date.now() },
+      ]
+      setFallbackMessages(newMessages)
+
+      // Simulate response after a short delay
+      setTimeout(() => {
+        setFallbackMessages((prev) => {
+          const updatedMessages = [
+            ...prev,
+            {
+              id: Date.now() + 1,
+              text: "Thank you for your message. Our team will contact you shortly. Would you like to schedule a viewing?",
+              sender: "admin",
+              timestamp: Date.now() + 1000,
+            },
+          ]
+
+          // Save to localStorage
+          if (typeof window !== "undefined") {
+            const savedUserData = JSON.parse(localStorage.getItem("marbellaUserData") || "{}")
+            localStorage.setItem(
+              "marbellaUserData",
+              JSON.stringify({
+                ...savedUserData,
+                fallbackMessages: updatedMessages,
+              }),
+            )
+          }
+
+          return updatedMessages
         })
-        .catch((error) => {
-          console.error("Error signing in anonymously:", error);
-          setError("Unable to connect to chat. Please try again later.");
-          setLoading(false);
-        });
-    }
-  }, [step, name, email]);
-
-  const handleSendMessage = () => {
-    console.log("fired");
-    if (!message.trim()) return;
-
-    const userId = auth.currentUser?.uid;
-    if (!userId) {
-      setError("Chat connection lost. Please refresh the page.");
-      return;
+      }, 1000)
     }
 
-    // Add message to Firebase
-    push(ref(rtdb, `chats/${userId}/messages`), {
-      text: message,
-      sender: "user",
-      timestamp: Date.now(),
-    });
-
-    setMessage("");
-  };
+    setMessage("")
+  }
 
   const handleStartChat = () => {
     if (!name.trim()) {
-      setError("Please enter your name to continue");
-      return;
+      setError("Please enter your name to continue")
+      return
     }
 
-    setError("");
-    setStep("chat");
-  };
+    setError("")
+    setStep("chat")
+  }
+
+  const handleSendToWhatsApp = () => {
+    if (!name.trim()) return
+
+    // Format the message to include user information and their inquiry
+    const userMessages = fallbackMessages
+      .filter((msg) => msg.sender === "user")
+      .map((msg) => msg.text)
+      .join("\n- ")
+
+    const formattedMessage = encodeURIComponent(
+      `Hello, my name is ${name}.\n` +
+        `Email: ${email}\n` +
+        `Phone: ${phone}\n\n` +
+        `My inquiry:\n- ${userMessages || "I'm interested in Marbella Apartments"}`,
+    )
+
+    // Create WhatsApp API URL - replace with your actual business number
+    const businessPhone = "+18765551234" // Replace with your actual WhatsApp business number
+    const whatsappURL = `https://wa.me/${businessPhone}?text=${formattedMessage}`
+
+    // Open WhatsApp in a new tab
+    window.open(whatsappURL, "_blank")
+  }
+
+  const handleResetUser = () => {
+    if (typeof window !== "undefined") {
+      localStorage.removeItem("marbellaUserData")
+    }
+    setName("")
+    setEmail("")
+    setPhone("")
+    setStep("intro")
+    setMessages([])
+    setFallbackMessages([
+      {
+        id: 1,
+        text: "Hello! How may we assist you with Marbella Apartments today?",
+        sender: "admin",
+        timestamp: Date.now(),
+      },
+    ])
+  }
 
   return (
     <div className="fixed bottom-6 right-6 z-50">
@@ -138,31 +365,48 @@ export default function ChatWidget() {
                   <div className="w-2 h-2 rounded-full bg-gold mr-2 animate-pulse"></div>
                   <h3 className="font-serif">Marbella Concierge</h3>
                 </div>
-                <button
-                  onClick={() => setIsOpen(false)}
-                  className="hover:bg-dark-blue-light rounded-full p-1 transition-colors"
-                >
-                  <X size={18} />
-                </button>
+                <div className="flex items-center">
+                  {step !== "intro" && (
+                    <button
+                      onClick={handleResetUser}
+                      className="hover:bg-dark-blue-light rounded-full p-1 transition-colors mr-2"
+                      title="Reset user data"
+                    >
+                      <LogOut size={16} />
+                    </button>
+                  )}
+                  <button
+                    onClick={() => setIsOpen(false)}
+                    className="hover:bg-dark-blue-light rounded-full p-1 transition-colors"
+                  >
+                    <X size={18} />
+                  </button>
+                </div>
               </div>
-              <p className="text-sm mt-1 text-gold/80">
-                Our team is here to assist you
-              </p>
+              {step !== "intro" && (
+                <div className="flex items-center mt-2 text-xs text-gold/80">
+                  <UserCircle size={14} className="mr-1" />
+                  <span>Chatting as {name}</span>
+                </div>
+              )}
+              {step === "intro" && <p className="text-sm mt-1 text-gold/80">Our team is here to assist you</p>}
             </div>
+
+            {step === "loading" && (
+              <div className="p-4 bg-gray-50 h-60 flex items-center justify-center">
+                <Loader2 size={24} className="animate-spin text-gold" />
+              </div>
+            )}
 
             {step === "intro" && (
               <div className="p-4 bg-gray-50">
                 <h4 className="font-serif text-lg mb-3">Welcome to Marbella</h4>
                 <p className="text-sm text-gray-600 mb-4">
-                  Please provide your details to start chatting with our
-                  concierge team.
+                  Please provide your details to start chatting with our concierge team.
                 </p>
                 <div className="space-y-3">
                   <div>
-                    <label
-                      htmlFor="chat-name"
-                      className="block text-sm font-medium text-gray-700 mb-1"
-                    >
+                    <label htmlFor="chat-name" className="block text-sm font-medium text-gray-700 mb-1">
                       Name <span className="text-red-500">*</span>
                     </label>
                     <input
@@ -175,10 +419,7 @@ export default function ChatWidget() {
                     />
                   </div>
                   <div>
-                    <label
-                      htmlFor="chat-email"
-                      className="block text-sm font-medium text-gray-700 mb-1"
-                    >
+                    <label htmlFor="chat-email" className="block text-sm font-medium text-gray-700 mb-1">
                       Email (optional)
                     </label>
                     <input
@@ -186,6 +427,18 @@ export default function ChatWidget() {
                       id="chat-email"
                       value={email}
                       onChange={(e) => setEmail(e.target.value)}
+                      className="w-full border border-gray-300 rounded px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-gold/50 focus:border-gold/50"
+                    />
+                  </div>
+                  <div>
+                    <label htmlFor="chat-phone" className="block text-sm font-medium text-gray-700 mb-1">
+                      Phone (optional)
+                    </label>
+                    <input
+                      type="tel"
+                      id="chat-phone"
+                      value={phone}
+                      onChange={(e) => setPhone(e.target.value)}
                       className="w-full border border-gray-300 rounded px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-gold/50 focus:border-gold/50"
                     />
                   </div>
@@ -200,44 +453,62 @@ export default function ChatWidget() {
               </div>
             )}
 
-            {step === "chat" && (
+            {(step === "chat" || step === "fallback") && (
               <>
-                <div
-                  ref={chatRef}
-                  className="p-4 bg-gray-50 h-60 overflow-y-auto"
-                >
+                <div ref={chatRef} className="p-4 bg-gray-50 h-60 overflow-y-auto">
                   {loading ? (
                     <div className="flex justify-center items-center h-full">
                       <Loader2 size={24} className="animate-spin text-gold" />
                     </div>
                   ) : (
                     <>
-                      {messages.map((msg) => (
-                        <div
-                          key={msg.id}
-                          className={`mb-3 flex ${
-                            msg.sender === "user"
-                              ? "justify-end"
-                              : "justify-start"
-                          }`}
-                        >
+                      {step === "chat" &&
+                        messages.map((msg) => (
                           <div
-                            className={`p-3 rounded-lg max-w-[80%] ${
-                              msg.sender === "user"
-                                ? "bg-gold/90 text-white ml-auto"
-                                : "bg-white shadow-sm border-l-2 border-gold"
-                            }`}
+                            key={msg.id}
+                            className={`mb-3 flex ${msg.sender === "user" ? "justify-end" : "justify-start"}`}
                           >
-                            <p className="text-sm">{msg.text}</p>
-                            <p className="text-xs mt-1 opacity-70">
-                              {new Date(msg.timestamp).toLocaleTimeString([], {
-                                hour: "2-digit",
-                                minute: "2-digit",
-                              })}
-                            </p>
+                            <div
+                              className={`p-3 rounded-lg max-w-[80%] ${
+                                msg.sender === "user"
+                                  ? "bg-gold/90 text-white ml-auto"
+                                  : "bg-white shadow-sm border-l-2 border-gold"
+                              }`}
+                            >
+                              <p className="text-sm">{msg.text}</p>
+                              <p className="text-xs mt-1 opacity-70">
+                                {new Date(msg.timestamp).toLocaleTimeString([], {
+                                  hour: "2-digit",
+                                  minute: "2-digit",
+                                })}
+                              </p>
+                            </div>
                           </div>
-                        </div>
-                      ))}
+                        ))}
+
+                      {step === "fallback" &&
+                        fallbackMessages.map((msg) => (
+                          <div
+                            key={msg.id}
+                            className={`mb-3 flex ${msg.sender === "user" ? "justify-end" : "justify-start"}`}
+                          >
+                            <div
+                              className={`p-3 rounded-lg max-w-[80%] ${
+                                msg.sender === "user"
+                                  ? "bg-gold/90 text-white ml-auto"
+                                  : "bg-white shadow-sm border-l-2 border-gold"
+                              }`}
+                            >
+                              <p className="text-sm">{msg.text}</p>
+                              <p className="text-xs mt-1 opacity-70">
+                                {new Date(msg.timestamp).toLocaleTimeString([], {
+                                  hour: "2-digit",
+                                  minute: "2-digit",
+                                })}
+                              </p>
+                            </div>
+                          </div>
+                        ))}
                       <div ref={messagesEndRef} />
                     </>
                   )}
@@ -258,6 +529,18 @@ export default function ChatWidget() {
                     <ArrowRight size={18} />
                   </button>
                 </div>
+
+                {step === "fallback" && (
+                  <div className="p-3 bg-gray-50 border-t border-gray-200">
+                    <button
+                      onClick={handleSendToWhatsApp}
+                      className="w-full bg-[#25D366] hover:bg-[#20BD5C] text-white py-2 rounded flex items-center justify-center"
+                    >
+                      <Send size={16} className="mr-2" />
+                      Continue on WhatsApp
+                    </button>
+                  </div>
+                )}
               </>
             )}
           </motion.div>
@@ -273,5 +556,5 @@ export default function ChatWidget() {
         <MessageCircle size={24} className="text-gold" />
       </motion.button>
     </div>
-  );
+  )
 }

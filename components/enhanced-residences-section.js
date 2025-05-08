@@ -78,7 +78,7 @@ export default function EnhancedResidencesSection() {
                 />
                 <div className="absolute inset-0 border border-gold/20"></div>
 
-                {isHovering && (
+                {/* {isHovering && (
                   <motion.div
                     initial={{ opacity: 0 }}
                     animate={{ opacity: 1 }}
@@ -89,7 +89,7 @@ export default function EnhancedResidencesSection() {
                       <span>View Virtual Tour</span>
                     </button>
                   </motion.div>
-                )}
+                )} */}
               </div>
               <div className="p-6 md:p-8 border-t border-gold/20">
                 <h3 className="text-xl md:text-2xl font-serif mb-3">{units[activeUnit].type}</h3>

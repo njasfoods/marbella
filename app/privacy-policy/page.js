@@ -99,9 +99,9 @@ export default function PrivacyPolicy() {
             <br />
             Long Lane, Kingston, Jamaica
             <br />
-            Email: privacy@marbellakingston.com
+            Email: privacy@marbellaja.com
             <br />
-            Phone: +1 (876) 123-4567
+            Phone: +1 (876) 589-7448
           </p>
         </div>
       </div>

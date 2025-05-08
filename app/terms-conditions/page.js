@@ -93,9 +93,9 @@ export default function TermsConditions() {
             <br />
             Long Lane, Kingston, Jamaica
             <br />
-            Email: legal@marbellakingston.com
+            Email: info@marbellaja.com
             <br />
-            Phone: +1 (876) 123-4567
+            Phone: +1 (876) 589-7448
           </p>
         </div>
       </div>

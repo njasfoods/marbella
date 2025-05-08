@@ -103,7 +103,7 @@ export const residenceImages = {
     caption: "Studio Residence",
   },
   oneBedroom: {
-    src: "/bedroom2.jpg",
+    src: "/bedroom.jpg",
     alt: "One Bedroom Residence",
     caption: "One Bedroom Residence",
   },

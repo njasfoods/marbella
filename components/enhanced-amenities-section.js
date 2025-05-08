@@ -2,7 +2,15 @@
 
 import { motion } from "framer-motion";
 import Image from "next/image";
-import { Sparkles, Maximize, Shield, Home, MapPin, TreePalm, TreePalmIcon } from "lucide-react";
+import {
+  Sparkles,
+  Maximize,
+  Shield,
+  Home,
+  MapPin,
+  TreePalm,
+  TreePalmIcon,
+} from "lucide-react";
 import { amenitiesImages } from "../app/gallery-data";
 
 export default function EnhancedAmenitiesSection() {
@@ -31,7 +39,7 @@ export default function EnhancedAmenitiesSection() {
         "Short-term rental friendly—perfect for Airbnb hosts and guests.",
       icon: <Home className="h-8 w-8 text-gold" />, // You can replace 'Home' with another icon if you prefer
       image: {
-        src: "/placeholder.svg?height=400&width=600",
+        src: "/airbnb.jpg",
         alt: "Airbnb Friendly",
         caption: "Airbnb Friendly",
       },
@@ -47,6 +55,16 @@ export default function EnhancedAmenitiesSection() {
       description: "Designated parking for residents and guests",
       icon: <MapPin className="h-8 w-8 text-gold" />,
       image: amenitiesImages.parking,
+    },
+    {
+      name: "Elevator Access",
+      description: "Convenient access to all floors",
+      icon: <Maximize className="h-8 w-8 text-gold" />,
+      image: {
+        src: "/elevator.jpg",
+        alt: "Elevator Access",
+        caption: "Elevator Access",
+      },
     },
   ];
 
