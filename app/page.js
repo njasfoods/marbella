@@ -27,7 +27,7 @@ function HomePage() {
       <EnhancedGallerySection />
       <ContactSection />
       <Footer />
-      {/* <ChatWidget /> */}
+      <ChatWidget />
     </main>
   );
 }

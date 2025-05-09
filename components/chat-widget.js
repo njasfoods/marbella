@@ -40,6 +40,7 @@ export default function ChatWidget() {
     },
   ])
   const unsubscribeRef = useRef(null)
+  const pendingMessagesRef = useRef(new Set()) // Track pending message IDs
 
   // Load user data from localStorage on component mount
   useEffect(() => {
@@ -175,6 +176,7 @@ export default function ChatWidget() {
             (snapshot) => {
               console.log("Message snapshot received, docs:", snapshot.docs.length)
 
+              // Process messages and deduplicate
               const messagesList = snapshot.docs.map((doc) => {
                 const data = doc.data()
                 return {
@@ -185,7 +187,14 @@ export default function ChatWidget() {
                 }
               })
 
+              // Remove any pending message IDs that are now in Firestore
+              messagesList.forEach((msg) => {
+                pendingMessagesRef.current.delete(msg.id)
+              })
+
               console.log("Processed messages:", messagesList)
+
+              // Set messages from Firestore
               setMessages(messagesList)
               setLoading(false)
             },
@@ -229,6 +238,18 @@ export default function ChatWidget() {
           timestamp: Date.now(), // For sorting and display
         }
 
+        // Generate a temporary ID for optimistic update
+        const tempId = `temp-${Date.now()}-${Math.random().toString(36).substring(2, 9)}`
+
+        // Optimistically add message to local state with temporary ID
+        setMessages((prevMessages) => [
+          ...prevMessages,
+          {
+            id: tempId,
+            ...messageData,
+          },
+        ])
+
         // Add message to Firestore
         const docRef = await addDoc(collection(db, "chats", userId, "messages"), messageData)
         console.log("Message sent with ID:", docRef.id)
@@ -242,14 +263,8 @@ export default function ChatWidget() {
           { merge: true },
         )
 
-        // Optimistically add message to local state for immediate display
-        setMessages((prevMessages) => [
-          ...prevMessages,
-          {
-            id: docRef.id,
-            ...messageData,
-          },
-        ])
+        // The Firestore listener will automatically update the messages
+        // with the correct ID from Firestore
       } catch (error) {
         console.error("Error sending message:", error)
         setError("Failed to send message. Please try again.")
@@ -471,7 +486,7 @@ export default function ChatWidget() {
                             <div
                               className={`p-3 rounded-lg max-w-[80%] ${
                                 msg.sender === "user"
-                                  ? "bg-gold/90 text-white ml-auto"
+                                  ? "bg-gold/90 text-gray-700 ml-auto"
                                   : "bg-white shadow-sm border-l-2 border-gold"
                               }`}
                             >
@@ -495,7 +510,7 @@ export default function ChatWidget() {
                             <div
                               className={`p-3 rounded-lg max-w-[80%] ${
                                 msg.sender === "user"
-                                  ? "bg-gold/90 text-white ml-auto"
+                                  ? "bg-gold/90 text-gray-700 ml-auto"
                                   : "bg-white shadow-sm border-l-2 border-gold"
                               }`}
                             >
