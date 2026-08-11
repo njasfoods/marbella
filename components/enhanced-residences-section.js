@@ -43,7 +43,7 @@ export default function EnhancedResidencesSection() {
             <span className="text-gold tracking-[0.2em] uppercase text-sm font-light">Luxury Residences</span>
           </div>
           <h2 className="text-3xl md:text-4xl font-serif mb-4">Curated Living Spaces</h2>
-          <p className="text-gray-300 max-w-2xl mx-auto font-light">
+          <p className="text-stone-300 max-w-2xl mx-auto font-light">
             Meticulously designed residences that elevate the art of living
           </p>
         </motion.div>
@@ -93,7 +93,7 @@ export default function EnhancedResidencesSection() {
               </div>
               <div className="p-6 md:p-8 border-t border-gold/20">
                 <h3 className="text-xl md:text-2xl font-serif mb-3">{units[activeUnit].type}</h3>
-                <p className="text-gray-300 mb-6 font-light">{units[activeUnit].size}</p>
+                <p className="text-stone-300 mb-6 font-light">{units[activeUnit].size}</p>
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-8">
                   {units[activeUnit].features.map((feature, index) => (
                     <div key={index} className="flex items-center">
@@ -134,9 +134,9 @@ export default function EnhancedResidencesSection() {
                   onClick={() => setActiveUnit(index)}
                 >
                   <h3 className="text-xl font-serif mb-3">{unit.type}</h3>
-                  <p className="text-gray-300 font-light">{unit.size}</p>
+                  <p className="text-stone-300 font-light">{unit.size}</p>
                   <div className="flex justify-between items-center mt-6">
-                    <span className="text-sm text-gray-400 font-light">
+                    <span className="text-sm text-stone-400 font-light">
                       {unit.type === "Studio Residence" ? "8 units available" : "9 units available"}
                     </span>
                     <ArrowRight size={18} className="text-gold" />
@@ -152,7 +152,7 @@ export default function EnhancedResidencesSection() {
                 className="bg-gold/10 p-6 md:p-8 border border-gold/30"
               >
                 <h3 className="text-xl font-serif mb-3">Available Units</h3>
-                <p className="text-gray-300 mb-4 font-light">
+                <p className="text-stone-300 mb-4 font-light">
                   {activeUnit === 0
                     ? "Studio Units: 1, 4, 5, 8, 9, 12, 13, 16"
                     : "One Bedroom Units: 2, 6, 7, 10, 11, 14, 15, 17, 18"}

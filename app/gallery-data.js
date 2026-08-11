@@ -69,29 +69,39 @@ export const heroImages = [
 // Amenities images
 export const amenitiesImages = {
   pool: {
-    src: "/roof1.jpg",
+    src: "/amenities/pool.png",
     alt: "Resort-style Swimming Pool",
     caption: "Resort-style Swimming Pool",
   },
   rooftop: {
-    src: "/roof3.jpg",
+    src: "/amenities/rooftop.png",
     alt: "Rooftop Lounge & Terrace",
     caption: "Panoramic Rooftop Lounge",
   },
   security: {
-    src: "/amenities/security.jpg",
+    src: "/amenities/security.png",
     alt: "24hr Security with CCTV",
     caption: "State-of-the-art Security",
   },
   landscape: {
-    src: "/amenities/garden.jpg",
+    src: "/amenities/garden.png",
     alt: "Landscaped Gardens",
     caption: "Meticulously Maintained Gardens",
   },
   parking: {
-    src: "/amenities/parking.jpg",
+    src: "/amenities/parking.png",
     alt: "Abundant Parking",
     caption: "Secure Residential Parking",
+  },
+  airbnb: {
+    src: "/amenities/airbnb.png",
+    alt: "Airbnb Friendly Interior",
+    caption: "Airbnb Friendly",
+  },
+  elevator: {
+    src: "/amenities/elevator.png",
+    alt: "Elevator Lobby",
+    caption: "Elevator Access",
   },
 };
 

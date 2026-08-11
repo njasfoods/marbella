@@ -372,7 +372,7 @@ export default function ChatWidget() {
             animate={{ opacity: 1, y: 0, scale: 1 }}
             exit={{ opacity: 0, y: 20, scale: 0.95 }}
             transition={{ duration: 0.3, ease: "easeOut" }}
-            className="bg-white rounded-lg shadow-2xl mb-4 w-full max-w-sm overflow-hidden border border-gold/20"
+            className="bg-stone-50 rounded-lg shadow-2xl mb-4 w-full max-w-sm overflow-hidden border border-gold/20"
           >
             <div className="bg-dark-blue p-4 text-white">
               <div className="flex items-center justify-between">
@@ -408,20 +408,20 @@ export default function ChatWidget() {
             </div>
 
             {step === "loading" && (
-              <div className="p-4 bg-gray-50 h-60 flex items-center justify-center">
+              <div className="p-4 bg-stone-100 h-60 flex items-center justify-center">
                 <Loader2 size={24} className="animate-spin text-gold" />
               </div>
             )}
 
             {step === "intro" && (
-              <div className="p-4 bg-gray-50">
+              <div className="p-4 bg-stone-100">
                 <h4 className="font-serif text-lg mb-3">Welcome to Marbella</h4>
-                <p className="text-sm text-gray-600 mb-4">
+                <p className="text-sm text-stone-600 mb-4">
                   Please provide your details to start chatting with our concierge team.
                 </p>
                 <div className="space-y-3">
                   <div>
-                    <label htmlFor="chat-name" className="block text-sm font-medium text-gray-700 mb-1">
+                    <label htmlFor="chat-name" className="block text-sm font-medium text-stone-700 mb-1">
                       Name <span className="text-red-500">*</span>
                     </label>
                     <input
@@ -429,12 +429,12 @@ export default function ChatWidget() {
                       id="chat-name"
                       value={name}
                       onChange={(e) => setName(e.target.value)}
-                      className="w-full border border-gray-300 rounded px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-gold/50 focus:border-gold/50"
+                      className="w-full border border-stone-300 rounded px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-gold/50 focus:border-gold/50"
                       required
                     />
                   </div>
                   <div>
-                    <label htmlFor="chat-email" className="block text-sm font-medium text-gray-700 mb-1">
+                    <label htmlFor="chat-email" className="block text-sm font-medium text-stone-700 mb-1">
                       Email (optional)
                     </label>
                     <input
@@ -442,11 +442,11 @@ export default function ChatWidget() {
                       id="chat-email"
                       value={email}
                       onChange={(e) => setEmail(e.target.value)}
-                      className="w-full border border-gray-300 rounded px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-gold/50 focus:border-gold/50"
+                      className="w-full border border-stone-300 rounded px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-gold/50 focus:border-gold/50"
                     />
                   </div>
                   <div>
-                    <label htmlFor="chat-phone" className="block text-sm font-medium text-gray-700 mb-1">
+                    <label htmlFor="chat-phone" className="block text-sm font-medium text-stone-700 mb-1">
                       Phone (optional)
                     </label>
                     <input
@@ -454,7 +454,7 @@ export default function ChatWidget() {
                       id="chat-phone"
                       value={phone}
                       onChange={(e) => setPhone(e.target.value)}
-                      className="w-full border border-gray-300 rounded px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-gold/50 focus:border-gold/50"
+                      className="w-full border border-stone-300 rounded px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-gold/50 focus:border-gold/50"
                     />
                   </div>
                   {error && <p className="text-red-500 text-xs">{error}</p>}
@@ -470,7 +470,7 @@ export default function ChatWidget() {
 
             {(step === "chat" || step === "fallback") && (
               <>
-                <div ref={chatRef} className="p-4 bg-gray-50 h-60 overflow-y-auto">
+                <div ref={chatRef} className="p-4 bg-stone-100 h-60 overflow-y-auto">
                   {loading ? (
                     <div className="flex justify-center items-center h-full">
                       <Loader2 size={24} className="animate-spin text-gold" />
@@ -486,8 +486,8 @@ export default function ChatWidget() {
                             <div
                               className={`p-3 rounded-lg max-w-[80%] ${
                                 msg.sender === "user"
-                                  ? "bg-gold/90 text-gray-700 ml-auto"
-                                  : "bg-white shadow-sm border-l-2 border-gold"
+                                  ? "bg-gold/90 text-stone-800 ml-auto"
+                                  : "bg-stone-50 shadow-sm border-l-2 border-gold"
                               }`}
                             >
                               <p className="text-sm">{msg.text}</p>
@@ -510,8 +510,8 @@ export default function ChatWidget() {
                             <div
                               className={`p-3 rounded-lg max-w-[80%] ${
                                 msg.sender === "user"
-                                  ? "bg-gold/90 text-gray-700 ml-auto"
-                                  : "bg-white shadow-sm border-l-2 border-gold"
+                                  ? "bg-gold/90 text-stone-800 ml-auto"
+                                  : "bg-stone-50 shadow-sm border-l-2 border-gold"
                               }`}
                             >
                               <p className="text-sm">{msg.text}</p>
@@ -528,13 +528,13 @@ export default function ChatWidget() {
                     </>
                   )}
                 </div>
-                <div className="p-3 flex items-center border-t border-gray-100">
+                <div className="p-3 flex items-center border-t border-stone-200">
                   <input
                     type="text"
                     value={message}
                     onChange={(e) => setMessage(e.target.value)}
                     placeholder="Write your message..."
-                    className="flex-1 border border-gray-200 rounded-full py-2 px-4 text-sm focus:outline-none focus:ring-2 focus:ring-gold/50 focus:border-gold/50"
+                    className="flex-1 border border-stone-200 rounded-full py-2 px-4 text-sm focus:outline-none focus:ring-2 focus:ring-gold/50 focus:border-gold/50"
                     onKeyPress={(e) => e.key === "Enter" && handleSendMessage()}
                   />
                   <button
@@ -546,7 +546,7 @@ export default function ChatWidget() {
                 </div>
 
                 {step === "fallback" && (
-                  <div className="p-3 bg-gray-50 border-t border-gray-200">
+                  <div className="p-3 bg-stone-100 border-t border-stone-200">
                     <button
                       onClick={handleSendToWhatsApp}
                       className="w-full bg-[#25D366] hover:bg-[#20BD5C] text-white py-2 rounded flex items-center justify-center"

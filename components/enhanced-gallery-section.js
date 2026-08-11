@@ -6,7 +6,7 @@ import { galleryImages } from "../app/gallery-data"
 
 export default function EnhancedGallerySection() {
   return (
-    <section id="gallery" className="py-16 md:py-24 bg-white overflow-hidden">
+    <section id="gallery" className="py-16 md:py-24 bg-stone-50 overflow-hidden">
       <div className="container-responsive mx-auto">
         <motion.div
           initial={{ opacity: 0, y: 30 }}
@@ -20,7 +20,7 @@ export default function EnhancedGallerySection() {
             <span className="text-gold tracking-[0.2em] uppercase text-sm font-light">Visual Journey</span>
           </div>
           <h2 className="text-3xl md:text-4xl font-serif mb-4">Experience Marbella</h2>
-          <p className="text-gray-700 max-w-2xl mx-auto font-light">
+          <p className="text-stone-700 max-w-2xl mx-auto font-light">
             Immerse yourself in the elegance and sophistication of our exclusive residences
           </p>
         </motion.div>

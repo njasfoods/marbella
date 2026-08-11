@@ -77,7 +77,7 @@ export default function ContactForm() {
       <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
           <div>
-            <label htmlFor="firstName" className="block text-sm font-light text-gray-300 mb-2">
+            <label htmlFor="firstName" className="block text-sm font-light text-stone-300 mb-2">
               First Name <span className="text-gold">*</span>
             </label>
             <input
@@ -91,7 +91,7 @@ export default function ContactForm() {
             {errors.firstName && <p className="text-red-400 text-xs mt-1">{errors.firstName.message}</p>}
           </div>
           <div>
-            <label htmlFor="lastName" className="block text-sm font-light text-gray-300 mb-2">
+            <label htmlFor="lastName" className="block text-sm font-light text-stone-300 mb-2">
               Last Name <span className="text-gold">*</span>
             </label>
             <input
@@ -107,7 +107,7 @@ export default function ContactForm() {
         </div>
 
         <div>
-          <label htmlFor="email" className="block text-sm font-light text-gray-300 mb-2">
+          <label htmlFor="email" className="block text-sm font-light text-stone-300 mb-2">
             Email <span className="text-gold">*</span>
           </label>
           <input
@@ -128,7 +128,7 @@ export default function ContactForm() {
         </div>
 
         <div>
-          <label htmlFor="phone" className="block text-sm font-light text-gray-300 mb-2">
+          <label htmlFor="phone" className="block text-sm font-light text-stone-300 mb-2">
             Phone <span className="text-gold">*</span>
           </label>
           <input
@@ -149,7 +149,7 @@ export default function ContactForm() {
         </div>
 
         <div>
-          <label htmlFor="unitType" className="block text-sm font-light text-gray-300 mb-2">
+          <label htmlFor="unitType" className="block text-sm font-light text-stone-300 mb-2">
             Residence of Interest <span className="text-gold">*</span>
           </label>
           <select
@@ -167,7 +167,7 @@ export default function ContactForm() {
         </div>
 
         <div>
-          <label htmlFor="message" className="block text-sm font-light text-gray-300 mb-2">
+          <label htmlFor="message" className="block text-sm font-light text-stone-300 mb-2">
             Message
           </label>
           <textarea
@@ -178,7 +178,7 @@ export default function ContactForm() {
           ></textarea>
         </div>
 
-        <div className="text-xs text-gray-400 mb-4">
+        <div className="text-xs text-stone-400 mb-4">
           <p>
             Fields marked with <span className="text-gold">*</span> are required
           </p>

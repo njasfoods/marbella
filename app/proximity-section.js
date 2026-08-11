@@ -22,7 +22,7 @@ export default function ProximitySection() {
   return (
     <section
       id="location"
-      className="py-16 md:py-24 bg-gray-50 relative overflow-hidden"
+      className="py-16 md:py-24 bg-stone-100 relative overflow-hidden"
     >
       <div className="absolute top-0 left-0 w-32 h-32 border border-gold/20 -translate-x-1/2 -translate-y-1/2"></div>
       <div className="absolute bottom-0 right-0 w-32 h-32 border border-gold/20 translate-x-1/2 translate-y-1/2"></div>
@@ -44,7 +44,7 @@ export default function ProximitySection() {
           <h2 className="text-3xl md:text-4xl font-serif mb-4">
             Effortless Connectivity
           </h2>
-          <p className="text-gray-700 max-w-2xl mx-auto font-light">
+          <p className="text-stone-700 max-w-2xl mx-auto font-light">
             Marbella offers convenient access to Kingston&apos;s most
             prestigious destinations
           </p>
@@ -58,10 +58,10 @@ export default function ProximitySection() {
               whileInView={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5, delay: index * 0.1 }}
               viewport={{ once: true }}
-              className="bg-white rounded-none p-6 md:p-8 hover:shadow-xl transition-shadow duration-300 border border-gold/10 group luxury-card"
+              className="bg-stone-50 rounded-none p-6 md:p-8 hover:shadow-xl transition-shadow duration-300 border border-gold/10 group luxury-card"
             >
               <div className="flex items-center mb-6">
-                <div className="w-12 h-12 bg-gray-50 rounded-none flex items-center justify-center text-2xl mr-4 border border-gold/20 group-hover:border-gold transition-colors duration-300">
+                <div className="w-12 h-12 bg-stone-100 rounded-none flex items-center justify-center text-2xl mr-4 border border-gold/20 group-hover:border-gold transition-colors duration-300">
                   {location.icon}
                 </div>
                 <div>
@@ -70,7 +70,7 @@ export default function ProximitySection() {
                   </h3>
                 </div>
               </div>
-              <div className="flex items-center text-gray-600 font-light">
+              <div className="flex items-center text-stone-600 font-light">
                 <Clock size={16} className="mr-2 text-gold" />
                 <span>{location.time} drive</span>
               </div>

@@ -10,7 +10,7 @@ export default function Footer() {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 md:gap-10">
           <div>
             <h3 className="text-xl font-serif mb-6">Marbella</h3>
-            <p className="text-gray-400 mb-6 font-light">
+            <p className="text-stone-400 mb-6 font-light">
               Luxury living in the upscale Long Lane area of Kingston, Jamaica.
             </p>
             <div className="flex space-x-4">
@@ -44,7 +44,7 @@ export default function Footer() {
               <li>
                 <Link
                   href="#home"
-                  className="text-gray-400 hover:text-gold transition-colors font-light"
+                  className="text-stone-400 hover:text-gold transition-colors font-light"
                 >
                   Home
                 </Link>
@@ -52,7 +52,7 @@ export default function Footer() {
               <li>
                 <Link
                   href="#about"
-                  className="text-gray-400 hover:text-gold transition-colors font-light"
+                  className="text-stone-400 hover:text-gold transition-colors font-light"
                 >
                   About
                 </Link>
@@ -60,7 +60,7 @@ export default function Footer() {
               <li>
                 <Link
                   href="#location"
-                  className="text-gray-400 hover:text-gold transition-colors font-light"
+                  className="text-stone-400 hover:text-gold transition-colors font-light"
                 >
                   Location
                 </Link>
@@ -68,7 +68,7 @@ export default function Footer() {
               <li>
                 <Link
                   href="#amenities"
-                  className="text-gray-400 hover:text-gold transition-colors font-light"
+                  className="text-stone-400 hover:text-gold transition-colors font-light"
                 >
                   Amenities
                 </Link>
@@ -76,7 +76,7 @@ export default function Footer() {
               <li>
                 <Link
                   href="#residences"
-                  className="text-gray-400 hover:text-gold transition-colors font-light"
+                  className="text-stone-400 hover:text-gold transition-colors font-light"
                 >
                   Residences
                 </Link>
@@ -84,7 +84,7 @@ export default function Footer() {
               <li>
                 <Link
                   href="#gallery"
-                  className="text-gray-400 hover:text-gold transition-colors font-light"
+                  className="text-stone-400 hover:text-gold transition-colors font-light"
                 >
                   Gallery
                 </Link>
@@ -92,7 +92,7 @@ export default function Footer() {
               <li>
                 <Link
                   href="#contact"
-                  className="text-gray-400 hover:text-gold transition-colors font-light"
+                  className="text-stone-400 hover:text-gold transition-colors font-light"
                 >
                   Contact
                 </Link>
@@ -106,7 +106,7 @@ export default function Footer() {
               <li>
                 <Link
                   href="/privacy-policy"
-                  className="text-gray-400 hover:text-gold transition-colors font-light"
+                  className="text-stone-400 hover:text-gold transition-colors font-light"
                 >
                   Privacy Policy
                 </Link>
@@ -114,7 +114,7 @@ export default function Footer() {
               <li>
                 <Link
                   href="/terms-conditions"
-                  className="text-gray-400 hover:text-gold transition-colors font-light"
+                  className="text-stone-400 hover:text-gold transition-colors font-light"
                 >
                   Terms & Conditions
                 </Link>
@@ -122,7 +122,7 @@ export default function Footer() {
               <li>
                 <Link
                   href="/cookie-policy"
-                  className="text-gray-400 hover:text-gold transition-colors font-light"
+                  className="text-stone-400 hover:text-gold transition-colors font-light"
                 >
                   Cookie Policy
                 </Link>
@@ -134,11 +134,11 @@ export default function Footer() {
         </div>
 
         <div className="border-t border-gold/10 mt-12 md:mt-16 pt-8 flex flex-col md:flex-row justify-between items-center">
-          <p className="text-gray-400 text-sm font-light">
+          <p className="text-stone-400 text-sm font-light">
             &copy; {new Date().getFullYear()} Marbella Apartments. All rights
             reserved.
           </p>
-          <p className="text-gray-400 text-sm mt-4 md:mt-0 font-light">
+          <p className="text-stone-400 text-sm mt-4 md:mt-0 font-light">
             Designed by <span className="text-gold">Trexiti</span>
           </p>
         </div>

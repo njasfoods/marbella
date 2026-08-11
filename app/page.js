@@ -16,7 +16,7 @@ import ChatWidget from "@/components/chat-widget";
 // Main component export
 function HomePage() {
   return (
-    <main className="bg-white text-gray-900 font-sans">
+    <main className="bg-stone-50 text-stone-900 font-sans">
       <Navbar />
       <EnhancedHeroSlider />
       <EnhancedAboutSection />

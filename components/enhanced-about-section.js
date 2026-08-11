@@ -6,7 +6,7 @@ import { aboutImage } from "../app/gallery-data"
 
 export default function EnhancedAboutSection() {
   return (
-    <section id="about" className="py-16 md:py-24 bg-white overflow-hidden">
+    <section id="about" className="py-16 md:py-24 bg-stone-50 overflow-hidden">
       <div className="container-responsive mx-auto">
         <div className="flex flex-col md:flex-row items-center gap-12 md:gap-16">
           <div className="w-full md:w-1/2">
@@ -51,12 +51,12 @@ export default function EnhancedAboutSection() {
               A Serene Retreat in <br className="hidden md:block" />
               Kingston&apos;s Upscale Long Lane
             </h2>
-            <p className="text-gray-700 mb-6 text-base md:text-lg font-light leading-relaxed">
+            <p className="text-stone-700 mb-6 text-base md:text-lg font-light leading-relaxed">
               Situated in the upscale region of Long Lane, Marbella Apartments offers a serene retreat just beyond the
               bustling heart of the city. Its peaceful ambiance is complemented by private vistas that provide an escape
               into nature without sacrificing convenience.
             </p>
-            <p className="text-gray-700 mb-8 md:mb-10 text-base md:text-lg font-light leading-relaxed">
+            <p className="text-stone-700 mb-8 md:mb-10 text-base md:text-lg font-light leading-relaxed">
               Residents enjoy proximity to Manor Park, an upstanding neighborhood known for its charm and accessibility.
               The surrounding area boasts a variety of shopping destinations and fine restaurants, making it easy to
               experience local flavors and find everyday essentials just a short walk away.

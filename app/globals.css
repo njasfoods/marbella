@@ -64,25 +64,25 @@
 }
 
 :root {
-  --radius: 0.625rem;
-  --background: oklch(1 0 0);
-  --foreground: oklch(0.145 0 0);
-  --card: oklch(1 0 0);
-  --card-foreground: oklch(0.145 0 0);
-  --popover: oklch(1 0 0);
-  --popover-foreground: oklch(0.145 0 0);
-  --primary: oklch(0.205 0 0);
-  --primary-foreground: oklch(0.985 0 0);
-  --secondary: oklch(0.97 0 0);
-  --secondary-foreground: oklch(0.205 0 0);
-  --muted: oklch(0.97 0 0);
-  --muted-foreground: oklch(0.556 0 0);
-  --accent: oklch(0.97 0 0);
-  --accent-foreground: oklch(0.205 0 0);
+  --radius: 0.125rem;
+  --background: oklch(0.99 0.003 80);
+  --foreground: oklch(0.19 0.012 55);
+  --card: oklch(0.99 0.003 80);
+  --card-foreground: oklch(0.19 0.012 55);
+  --popover: oklch(0.99 0.003 80);
+  --popover-foreground: oklch(0.19 0.012 55);
+  --primary: oklch(0.19 0.012 55);
+  --primary-foreground: oklch(0.99 0.003 80);
+  --secondary: oklch(0.96 0.004 75);
+  --secondary-foreground: oklch(0.19 0.012 55);
+  --muted: oklch(0.96 0.004 75);
+  --muted-foreground: oklch(0.48 0.012 60);
+  --accent: oklch(0.96 0.004 75);
+  --accent-foreground: oklch(0.19 0.012 55);
   --destructive: oklch(0.577 0.245 27.325);
-  --border: oklch(0.922 0 0);
-  --input: oklch(0.922 0 0);
-  --ring: oklch(0.708 0 0);
+  --border: oklch(0.9 0.006 70);
+  --input: oklch(0.9 0.006 70);
+  --ring: oklch(0.6 0.05 75);
   --chart-1: oklch(0.646 0.222 41.116);
   --chart-2: oklch(0.6 0.118 184.704);
   --chart-3: oklch(0.398 0.07 227.392);
@@ -97,20 +97,20 @@
   --sidebar-border: oklch(0.922 0 0);
   --sidebar-ring: oklch(0.708 0 0);
 
-  /* Marbella custom colors */
-  --gold: #d4af37;
-  --gold-50: #f9f4e3;
-  --gold-100: #f3e9c8;
-  --gold-200: #ebd491;
-  --gold-300: #e3bf5a;
-  --gold-400: #dcaa24;
-  --gold-500: #d4af37;
-  --gold-600: #bf9b30;
-  --gold-700: #a98729;
-  --gold-800: #937322;
-  --gold-900: #7d5f1b;
-  --dark-blue: #0f1a2a;
-  --dark-blue-light: #1a2a3f;
+  /* Marbella custom colors — antique brass + espresso, modern villa palette */
+  --gold: #a9814f;
+  --gold-50: #f8f1e7;
+  --gold-100: #eee0c9;
+  --gold-200: #ddc39a;
+  --gold-300: #c9a46f;
+  --gold-400: #b58f56;
+  --gold-500: #a9814f;
+  --gold-600: #8f6a40;
+  --gold-700: #755635;
+  --gold-800: #5c432a;
+  --gold-900: #443220;
+  --dark-blue: #191511;
+  --dark-blue-light: #27201a;
 }
 
 .dark {
@@ -380,7 +380,7 @@ html {
 
 .luxury-card:hover {
   transform: translateY(-5px);
-  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 24px 48px rgba(25, 21, 17, 0.14);
 }
 
 /* Enhanced mobile menu */
