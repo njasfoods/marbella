@@ -122,13 +122,13 @@ export const residenceImages = {
 // Floor plans
 export const floorPlanImages = {
   studio: {
-    src: "/floor-plans/1.jpg",
-    alt: "Studio Floor Plan",
+    src: "/floor-plans/studio.png",
+    alt: "Studio Residence Floor Plan - 856 sqft gross, 768 sqft habitable",
     caption: "Studio Floor Plan - 856 sqft",
   },
   oneBedroom: {
-    src: "/floor-plans/2.jpg",
-    alt: "One Bedroom Floor Plan",
+    src: "/floor-plans/one-bedroom.png",
+    alt: "One Bedroom Residence Floor Plan - 912 sqft gross, 840 sqft habitable",
     caption: "One Bedroom Floor Plan - 912 sqft",
   },
 };
