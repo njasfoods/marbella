@@ -36,7 +36,7 @@ export const galleryImages = [
     caption: "Spa-Inspired Bathroom",
   },
   {
-    src: "/3.jpg",
+    src: "/balcony.png",
     alt: "Private Balcony",
     caption: "Private Balcony with City Views",
   },
