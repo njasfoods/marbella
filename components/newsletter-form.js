@@ -50,7 +50,7 @@ export default function NewsletterForm({ className = "" }) {
   return (
     <div className={className}>
       <h3 className="text-lg font-serif mb-6">Newsletter</h3>
-      <p className="text-gray-400 mb-6 font-light">
+      <p className="text-stone-400 mb-6 font-light">
         Subscribe to receive exclusive updates and offers from Marbella Apartments.
       </p>
 

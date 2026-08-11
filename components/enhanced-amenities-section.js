@@ -8,7 +8,6 @@ import {
   Shield,
   Home,
   MapPin,
-  TreePalm,
   TreePalmIcon,
 } from "lucide-react";
 import { amenitiesImages } from "../app/gallery-data";
@@ -18,60 +17,52 @@ export default function EnhancedAmenitiesSection() {
     {
       name: "Swimming Pool",
       description: "Resort-style pool with lounging area",
-      icon: <Sparkles className="h-8 w-8 text-gold" />,
+      icon: <Sparkles className="h-5 w-5 text-gold" />,
       image: amenitiesImages.pool,
     },
     {
       name: "Rooftop Lounge & Terrace",
       description: "Panoramic views of Kingston",
-      icon: <Maximize className="h-8 w-8 text-gold" />,
+      icon: <Maximize className="h-5 w-5 text-gold" />,
       image: amenitiesImages.rooftop,
     },
     {
       name: "24hr Security with CCTV",
       description: "Round-the-clock monitoring and security",
-      icon: <Shield className="h-8 w-8 text-gold" />,
+      icon: <Shield className="h-5 w-5 text-gold" />,
       image: amenitiesImages.security,
     },
     {
       name: "Airbnb Friendly",
       description:
         "Short-term rental friendly—perfect for Airbnb hosts and guests.",
-      icon: <Home className="h-8 w-8 text-gold" />, // You can replace 'Home' with another icon if you prefer
-      image: {
-        src: "/airbnb.jpg",
-        alt: "Airbnb Friendly",
-        caption: "Airbnb Friendly",
-      },
+      icon: <Home className="h-5 w-5 text-gold" />,
+      image: amenitiesImages.airbnb,
     },
     {
       name: "Landscaped Areas",
       description: "Beautifully maintained gardens",
-      icon: <TreePalmIcon className="h-8 w-8 text-gold" />,
+      icon: <TreePalmIcon className="h-5 w-5 text-gold" />,
       image: amenitiesImages.landscape,
     },
     {
       name: "Abundant Parking",
       description: "Designated parking for residents and guests",
-      icon: <MapPin className="h-8 w-8 text-gold" />,
+      icon: <MapPin className="h-5 w-5 text-gold" />,
       image: amenitiesImages.parking,
     },
     {
       name: "Elevator Access",
       description: "Convenient access to all floors",
-      icon: <Maximize className="h-8 w-8 text-gold" />,
-      image: {
-        src: "/elevator.jpg",
-        alt: "Elevator Access",
-        caption: "Elevator Access",
-      },
+      icon: <Maximize className="h-5 w-5 text-gold" />,
+      image: amenitiesImages.elevator,
     },
   ];
 
   return (
     <section
       id="amenities"
-      className="py-16 md:py-24 bg-white relative overflow-hidden"
+      className="py-16 md:py-24 bg-stone-50 relative overflow-hidden"
     >
       <div className="absolute left-0 top-1/2 -translate-y-1/2 w-24 h-64 bg-gold/5"></div>
       <div className="absolute right-0 top-1/2 -translate-y-1/2 w-24 h-64 bg-gold/5"></div>
@@ -93,7 +84,7 @@ export default function EnhancedAmenitiesSection() {
           <h2 className="text-3xl md:text-4xl font-serif mb-4">
             Curated Amenities
           </h2>
-          <p className="text-gray-700 max-w-2xl mx-auto font-light">
+          <p className="text-stone-700 max-w-2xl mx-auto font-light">
             Experience a lifestyle of unparalleled luxury with our thoughtfully
             selected amenities
           </p>
@@ -109,7 +100,7 @@ export default function EnhancedAmenitiesSection() {
               viewport={{ once: true }}
               className="group"
             >
-              <div className="relative overflow-hidden mb-6 img-hover-zoom">
+              <div className="relative overflow-hidden mb-6 img-hover-zoom border border-gold/10">
                 <Image
                   src={
                     amenity.image &&
@@ -127,20 +118,18 @@ export default function EnhancedAmenitiesSection() {
                   height={400}
                   className="w-full h-64 object-cover"
                 />
-                <div className="absolute inset-0 bg-dark-blue/0 group-hover:bg-dark-blue/40 transition-all duration-500"></div>
-                <div className="absolute bottom-0 left-0 right-0 bg-dark-blue/80 text-white py-3 px-4">
-                  <h3 className="text-xl font-serif">{amenity.name}</h3>
-                </div>
-              </div>
-              <div className="flex items-start">
-                <div className="mr-4 group-hover:scale-110 transition-transform duration-300 mt-1">
+                <div className="absolute inset-0 bg-gradient-to-t from-dark-blue/90 via-dark-blue/10 to-transparent group-hover:from-dark-blue/95 transition-all duration-500"></div>
+                <div className="absolute top-4 left-4 w-10 h-10 flex items-center justify-center bg-dark-blue/70 backdrop-blur-sm border border-gold/40">
                   {amenity.icon}
                 </div>
-                <div>
-                  <p className="text-gray-600 font-light">
-                    {amenity.description}
-                  </p>
+                <div className="absolute bottom-0 left-0 right-0 py-4 px-5">
+                  <h3 className="text-xl font-serif text-white">{amenity.name}</h3>
                 </div>
+              </div>
+              <div>
+                <p className="text-stone-600 font-light">
+                  {amenity.description}
+                </p>
               </div>
             </motion.div>
           ))}

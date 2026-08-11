@@ -51,12 +51,14 @@ export default function Navbar() {
   return (
     <header
       className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${
-        scrolled ? "bg-white/90 backdrop-blur-md shadow-lg py-2" : "bg-transparent py-4 md:py-6"
+        scrolled ? "bg-stone-50/95 backdrop-blur-md shadow-lg py-2" : "bg-transparent py-4 md:py-6"
       }`}
     >
       <div className="container-responsive mx-auto flex justify-between items-center">
         <Link href="/" className="flex items-center">
-          <h1 className={`text-2xl md:text-3xl font-serif font-bold ${scrolled ? "text-gray-900" : "text-white"}`}>
+          <h1
+            className={`text-2xl md:text-3xl font-serif font-medium tracking-[0.04em] ${scrolled ? "text-stone-900" : "text-white"}`}
+          >
             Marbella
             <span className="text-gold">.</span>
           </h1>
@@ -69,7 +71,7 @@ export default function Navbar() {
               key={item}
               href={`#${item.toLowerCase()}`}
               className={`font-light tracking-wide hover:text-gold transition-colors duration-300 relative py-2 ${
-                scrolled ? "text-gray-800" : "text-white"
+                scrolled ? "text-stone-800" : "text-white"
               } ${activeSection === item.toLowerCase() ? "text-gold" : ""}`}
             >
               {item}
@@ -89,7 +91,7 @@ export default function Navbar() {
         {/* Mobile Navigation Toggle */}
         <button
           onClick={() => setIsOpen(!isOpen)}
-          className={`md:hidden p-2 ${scrolled ? "text-gray-900" : "text-white"}`}
+          className={`md:hidden p-2 ${scrolled ? "text-stone-900" : "text-white"}`}
           aria-label="Toggle menu"
         >
           {isOpen ? <X size={24} /> : <Menu size={24} />}
@@ -104,14 +106,14 @@ export default function Navbar() {
             animate={{ opacity: 1, height: "auto" }}
             exit={{ opacity: 0, height: 0 }}
             transition={{ duration: 0.3, ease: "easeInOut" }}
-            className="md:hidden bg-white/95 backdrop-blur-md overflow-hidden"
+            className="md:hidden bg-stone-50/98 backdrop-blur-md overflow-hidden"
           >
             <div className="container-responsive mx-auto py-4 flex flex-col">
               {navItems.map((item) => (
                 <Link
                   key={item}
                   href={`#${item.toLowerCase()}`}
-                  className="text-gray-800 font-light tracking-wide py-4 hover:text-gold transition-colors border-b border-gray-100 mobile-menu-item flex justify-between items-center"
+                  className="text-stone-800 font-light tracking-wide py-4 hover:text-gold transition-colors border-b border-stone-200 mobile-menu-item flex justify-between items-center"
                   onClick={() => setIsOpen(false)}
                 >
                   <span>{item}</span>
